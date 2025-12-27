@@ -147,18 +147,53 @@
         }
 
         .folder {
+            margin: 0.25rem 0;
+        }
+
+        .folder-header {
+            cursor: pointer;
+            user-select: none;
+            padding: 0.25rem 0;
             color: var(--text-primary);
             font-weight: 600;
-            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            transition: color 0.2s;
+        }
+
+        .folder-header:hover {
+            color: var(--accent-color);
+        }
+
+        .folder-toggle {
+            display: inline-block;
+            width: 1rem;
+            margin-right: 0.5rem;
+            transition: transform 0.2s;
+        }
+
+        .folder-toggle.expanded {
+            transform: rotate(90deg);
+        }
+
+        .folder-content {
+            margin-left: 1.5rem;
+            display: none;
+            overflow: hidden;
+        }
+
+        .folder-content.show {
+            display: block;
         }
 
         .file {
             color: var(--text-secondary);
-            margin-left: 1.5rem;
+            padding: 0.25rem 0;
+            padding-left: 1rem;
         }
 
         .subfolder {
-            margin-left: 1.5rem;
+            margin-left: 0;
         }
 
         /* Interest Areas */
@@ -269,38 +304,98 @@
             </p>
 
             <div class="project-tree">
-Development/
-├── Hardware/
-│   ├── FPV/
-│   └── Metronome/
+                <div class="folder">
+                    <div class="folder-header" onclick="toggleFolder(this)">
+                        <span class="folder-toggle">▸</span>Development/
+                    </div>
+                    <div class="folder-content">
+                        <div class="folder subfolder">
+                            <div class="folder-header" onclick="toggleFolder(this)">
+                                <span class="folder-toggle">▸</span>Hardware/
+                            </div>
+                            <div class="folder-content">
+                                <div class="file">FPV/</div>
+                                <div class="file">Metronome/</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-MachineLearning/
-├── Algorithms/
-│   ├── AutoRegressiveModel
-│   ├── MultivariateAutoregressiveModel
-│   └── PrincipleComponentAnalysis
-└── DeepLearning/
-    ├── Algorithms/
-    └── BabyMLP/
+                <div class="folder">
+                    <div class="folder-header" onclick="toggleFolder(this)">
+                        <span class="folder-toggle">▸</span>MachineLearning/
+                    </div>
+                    <div class="folder-content">
+                        <div class="folder subfolder">
+                            <div class="folder-header" onclick="toggleFolder(this)">
+                                <span class="folder-toggle">▸</span>Algorithms/
+                            </div>
+                            <div class="folder-content">
+                                <div class="file">AutoRegressiveModel</div>
+                                <div class="file">MultivariateAutoregressiveModel</div>
+                                <div class="file">PrincipleComponentAnalysis</div>
+                            </div>
+                        </div>
+                        <div class="folder subfolder">
+                            <div class="folder-header" onclick="toggleFolder(this)">
+                                <span class="folder-toggle">▸</span>DeepLearning/
+                            </div>
+                            <div class="folder-content">
+                                <div class="file">Algorithms/</div>
+                                <div class="file">BabyMLP/</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-SignalProcessing/
-├── BCI/
-│   └── MNE
-├── Fundamentals/
-│   ├── EmpericalModeDecomposition
-│   ├── FourierTransform
-│   ├── IndependentComponentAnalysis
-│   ├── MusicAlgorithm
-│   ├── ProneysMethod
-│   ├── ShanonNyquist
-│   └── WaveletTransform
-└── ImageProcessing/
-    └── ImageCompressionWithFFT
+                <div class="folder">
+                    <div class="folder-header" onclick="toggleFolder(this)">
+                        <span class="folder-toggle">▸</span>SignalProcessing/
+                    </div>
+                    <div class="folder-content">
+                        <div class="folder subfolder">
+                            <div class="folder-header" onclick="toggleFolder(this)">
+                                <span class="folder-toggle">▸</span>BCI/
+                            </div>
+                            <div class="folder-content">
+                                <div class="file">MNE</div>
+                            </div>
+                        </div>
+                        <div class="folder subfolder">
+                            <div class="folder-header" onclick="toggleFolder(this)">
+                                <span class="folder-toggle">▸</span>Fundamentals/
+                            </div>
+                            <div class="folder-content">
+                                <div class="file">EmpericalModeDecomposition</div>
+                                <div class="file">FourierTransform</div>
+                                <div class="file">IndependentComponentAnalysis</div>
+                                <div class="file">MusicAlgorithm</div>
+                                <div class="file">ProneysMethod</div>
+                                <div class="file">ShanonNyquist</div>
+                                <div class="file">WaveletTransform</div>
+                            </div>
+                        </div>
+                        <div class="folder subfolder">
+                            <div class="folder-header" onclick="toggleFolder(this)">
+                                <span class="folder-toggle">▸</span>ImageProcessing/
+                            </div>
+                            <div class="folder-content">
+                                <div class="file">ImageCompressionWithFFT</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-Theories/
-├── Calculus/
-├── LinearAlgebra/
-└── Statistics/
+                <div class="folder">
+                    <div class="folder-header" onclick="toggleFolder(this)">
+                        <span class="folder-toggle">▸</span>Theories/
+                    </div>
+                    <div class="folder-content">
+                        <div class="file">Calculus/</div>
+                        <div class="file">LinearAlgebra/</div>
+                        <div class="file">Statistics/</div>
+                    </div>
+                </div>
             </div>
 
             <p>
@@ -403,6 +498,17 @@ Theories/
                 }
             });
         });
+
+        // Toggle folder visibility
+        function toggleFolder(element) {
+            const toggle = element.querySelector('.folder-toggle');
+            const content = element.nextElementSibling;
+            
+            if (content && content.classList.contains('folder-content')) {
+                content.classList.toggle('show');
+                toggle.classList.toggle('expanded');
+            }
+        }
     </script>
 </body>
 </html>
