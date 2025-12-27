@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hasan Siddiki - Portfolio</title>
+    <title>Hasan Siddiki</title>
     <style>
         * {
             margin: 0;
@@ -11,167 +11,398 @@
             box-sizing: border-box;
         }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #fafafa;
+            --text-primary: #1a1a1a;
+            --text-secondary: #4a4a4a;
+            --text-muted: #6a6a6a;
+            --border-color: #e0e0e0;
+            --accent-color: #2c3e50;
         }
 
-        .container {
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            line-height: 1.8;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            font-size: 16px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.5rem 0;
+            z-index: 1000;
+        }
+
+        nav .container {
             max-width: 900px;
             margin: 0 auto;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
-        }
-
-        .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 60px 40px;
-            text-align: center;
-        }
-
-        .profile-image {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            background: white;
-            margin: 0 auto 20px;
+            padding: 0 2rem;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            font-size: 48px;
-            font-weight: bold;
-            color: #667eea;
-            border: 5px solid rgba(255, 255, 255, 0.3);
+        }
+
+        nav .name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            letter-spacing: 0.5px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        nav a:hover {
+            color: var(--text-primary);
+        }
+
+        /* Main Content */
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 8rem 2rem 4rem;
+        }
+
+        section {
+            margin-bottom: 6rem;
+            scroll-margin-top: 100px;
         }
 
         h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            line-height: 1.2;
         }
 
-        .subtitle {
-            font-size: 1.2em;
-            opacity: 0.9;
+        h2 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
         }
 
-        .content {
-            padding: 40px;
+        h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 1.5rem 0 1rem;
+            color: var(--text-primary);
         }
 
-        .section {
-            margin-bottom: 40px;
+        p {
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
         }
 
-        .section h2 {
-            color: #667eea;
-            margin-bottom: 15px;
-            font-size: 1.8em;
-            border-bottom: 3px solid #667eea;
-            padding-bottom: 10px;
-        }
-
-        .section p {
-            font-size: 1.1em;
-            color: #555;
+        .intro {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
             line-height: 1.8;
         }
 
-        .social-links {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .social-links a {
-            display: inline-block;
-            padding: 12px 30px;
-            background: white;
-            color: #667eea;
+        /* Links */
+        a.link {
+            color: var(--accent-color);
             text-decoration: none;
-            border-radius: 25px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            border: 2px solid white;
+            border-bottom: 1px solid var(--border-color);
+            transition: border-color 0.2s;
         }
 
-        .social-links a:hover {
-            background: transparent;
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        a.link:hover {
+            border-bottom-color: var(--accent-color);
         }
 
-        .footer {
+        /* Project Structure */
+        .project-tree {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+            margin: 2rem 0;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            overflow-x: auto;
+        }
+
+        .folder {
+            color: var(--text-primary);
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        .file {
+            color: var(--text-secondary);
+            margin-left: 1.5rem;
+        }
+
+        .subfolder {
+            margin-left: 1.5rem;
+        }
+
+        /* Interest Areas */
+        .interests {
+            margin: 2rem 0;
+        }
+
+        .interests ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .interests li {
+            padding: 0.75rem 0;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .interests li:last-child {
+            border-bottom: none;
+        }
+
+        /* Contact */
+        .contact-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .contact-list li {
+            padding: 0.75rem 0;
+            color: var(--text-secondary);
+        }
+
+        /* Footer */
+        footer {
+            max-width: 900px;
+            margin: 4rem auto 0;
+            padding: 2rem;
             text-align: center;
-            padding: 20px;
-            background: #f8f9fa;
-            color: #666;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         }
 
+        /* Responsive */
         @media (max-width: 768px) {
-            .header {
-                padding: 40px 20px;
+            nav .container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+            }
+
+            main {
+                padding: 7rem 1.5rem 3rem;
             }
 
             h1 {
-                font-size: 2em;
+                font-size: 2rem;
             }
 
-            .content {
-                padding: 30px 20px;
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .project-tree {
+                padding: 1.5rem;
+                font-size: 0.85rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <div class="profile-image">HS</div>
+    <nav>
+        <div class="container">
+            <div class="name">Hasan Siddiki</div>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#myworks">MyWorks</a></li>
+                <li><a href="#writing">Writing</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Home Section -->
+        <section id="home">
             <h1>Hasan Siddiki</h1>
-            <p class="subtitle">Welcome to my GitHub Pages site</p>
-            <div class="social-links" style="margin-top: 30px;">
-                <a href="https://github.com/Siddik911" target="_blank">GitHub Profile</a>
-                <a href="https://github.com/Siddik911/HasanSiddiki" target="_blank">View Repository</a>
-            </div>
-        </div>
+            <p class="intro">
+                Computer Science student focused on understanding systems from first principles.
+                I build implementations from scratch, study the mathematics behind algorithms,
+                and prioritize depth over abstraction.
+            </p>
+        </section>
 
-        <div class="content">
-            <div class="section">
-                <h2>About Me</h2>
-                <p>
-                    Welcome to my personal page! This site is hosted on GitHub Pages.
-                    Feel free to explore my projects and connect with me on GitHub.
-                </p>
+        <!-- MyWorks Section -->
+        <section id="myworks">
+            <h2>MyWorks</h2>
+            <p>
+                A collection of research-oriented implementations and documented explorations
+                in machine learning, signal processing, and computational methods. Each project
+                emphasizes theoretical understanding and algorithmic rigor.
+            </p>
+
+            <div class="project-tree">
+Development/
+├── Hardware/
+│   ├── FPV/
+│   └── Metronome/
+
+MachineLearning/
+├── Algorithms/
+│   ├── AutoRegressiveModel
+│   ├── MultivariateAutoregressiveModel
+│   └── PrincipleComponentAnalysis
+└── DeepLearning/
+    ├── Algorithms/
+    └── BabyMLP/
+
+SignalProcessing/
+├── BCI/
+│   └── MNE
+├── Fundamentals/
+│   ├── EmpericalModeDecomposition
+│   ├── FourierTransform
+│   ├── IndependentComponentAnalysis
+│   ├── MusicAlgorithm
+│   ├── ProneysMethod
+│   ├── ShanonNyquist
+│   └── WaveletTransform
+└── ImageProcessing/
+    └── ImageCompressionWithFFT
+
+Theories/
+├── Calculus/
+├── LinearAlgebra/
+└── Statistics/
             </div>
 
-            <div class="section">
-                <h2>Projects</h2>
-                <p>
-                    Check out my repositories on GitHub to see what I've been working on.
-                    I'm passionate about coding and constantly learning new technologies.
-                </p>
+            <p>
+                <a href="https://github.com/Siddik911/HasanSiddiki" class="link" target="_blank">
+                    View complete repository on GitHub →
+                </a>
+            </p>
+        </section>
+
+        <!-- Writing Section -->
+        <section id="writing">
+            <h2>Writing / Notes</h2>
+            <p>
+                Technical notes and write-ups documenting implementation decisions, mathematical
+                derivations, and algorithmic analysis. These materials serve as both personal
+                reference and learning resources.
+            </p>
+
+            <h3>Machine Learning</h3>
+            <p>
+                Explorations of autoregressive models, PCA, and fundamental deep learning
+                architectures implemented without high-level frameworks.
+            </p>
+
+            <h3>Signal Processing</h3>
+            <p>
+                Studies in Fourier analysis, wavelet transforms, independent component analysis,
+                and computational methods for signal decomposition and reconstruction.
+            </p>
+
+            <h3>Foundations</h3>
+            <p>
+                Mathematical foundations covering linear algebra, calculus, and statistical
+                methods essential for rigorous algorithmic work.
+            </p>
+        </section>
+
+        <!-- About Section -->
+        <section id="about">
+            <h2>About</h2>
+            <p>
+                I am a Computer Science student with a research-oriented approach to learning.
+                My work emphasizes understanding underlying principles rather than applying
+                pre-packaged solutions.
+            </p>
+
+            <div class="interests">
+                <h3>Research Interests</h3>
+                <ul>
+                    <li>Machine Learning from first principles</li>
+                    <li>Signal and Image Processing</li>
+                    <li>Computer Vision and computational photography</li>
+                    <li>Algorithmic foundations and systems-level thinking</li>
+                    <li>Mathematical optimization and numerical methods</li>
+                </ul>
             </div>
 
-            <div class="section">
-                <h2>Get in Touch</h2>
-                <p>
-                    Feel free to reach out to me through GitHub or explore my repositories
-                    to see my latest work and contributions.
-                </p>
-            </div>
-        </div>
+            <p>
+                I value clarity in exposition, mathematical rigor in implementation, and
+                building intuition through careful study. My approach favors depth over
+                breadth, understanding over memorization.
+            </p>
+        </section>
 
-        <div class="footer">
-            <p>&copy; 2025 Hasan Siddiki. Powered by GitHub Pages.</p>
-        </div>
-    </div>
+        <!-- Contact Section -->
+        <section id="contact">
+            <h2>Contact</h2>
+            <p>
+                I am open to research collaborations, technical discussions, and opportunities
+                in machine learning research or engineering roles that value foundational knowledge.
+            </p>
+
+            <ul class="contact-list">
+                <li>
+                    GitHub: <a href="https://github.com/Siddik911" class="link" target="_blank">
+                        github.com/Siddik911
+                    </a>
+                </li>
+                <li>
+                    Repository: <a href="https://github.com/Siddik911/HasanSiddiki" class="link" target="_blank">
+                        github.com/Siddik911/HasanSiddiki
+                    </a>
+                </li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2025 Hasan Siddiki. Built with minimal dependencies.</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
