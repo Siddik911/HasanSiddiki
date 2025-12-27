@@ -3,29 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hasan Siddiki</title>
+    <title>Hasan Siddiki | Computer Science Portfolio</title>
     <style>
+        :root {
+            /* Modern Color Palette */
+            --primary-color: #2563eb; /* Royal Blue */
+            --primary-dark: #1e40af;
+            --secondary-color: #64748b; /* Slate */
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --border-color: #e2e8f0;
+            --accent-bg: #eff6ff;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        :root {
-            --bg-primary: #ffffff;
-            --bg-secondary: #fafafa;
-            --text-primary: #1a1a1a;
-            --text-secondary: #4a4a4a;
-            --text-muted: #6a6a6a;
-            --border-color: #e0e0e0;
-            --accent-color: #2c3e50;
-        }
-
         body {
-            font-family: 'Georgia', 'Times New Roman', serif;
-            line-height: 1.8;
-            color: var(--text-primary);
-            background: var(--bg-primary);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.7;
+            color: var(--text-main);
+            background-color: var(--bg-body);
             font-size: 16px;
         }
 
@@ -34,209 +39,268 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: var(--bg-primary);
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--border-color);
-            padding: 1.5rem 0;
             z-index: 1000;
+            transition: all 0.3s ease;
         }
 
         nav .container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        nav .name {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            letter-spacing: 0.5px;
+        nav .brand {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            letter-spacing: -0.5px;
         }
 
         nav ul {
-            list-style: none;
             display: flex;
             gap: 2rem;
+            list-style: none;
         }
 
         nav a {
-            color: var(--text-secondary);
             text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 500;
             font-size: 0.95rem;
             transition: color 0.2s;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         }
 
         nav a:hover {
-            color: var(--text-primary);
+            color: var(--primary-color);
         }
 
-        /* Main Content */
+        /* Layout */
         main {
-            max-width: 900px;
+            max-width: 800px;
             margin: 0 auto;
             padding: 8rem 2rem 4rem;
         }
 
         section {
             margin-bottom: 6rem;
-            scroll-margin-top: 100px;
+            scroll-margin-top: 120px;
         }
 
+        /* Typography */
         h1 {
-            font-size: 2.5rem;
-            font-weight: 600;
+            font-size: 2.75rem;
+            font-weight: 800;
+            letter-spacing: -1px;
             margin-bottom: 1rem;
-            color: var(--text-primary);
-            line-height: 1.2;
+            color: var(--text-main);
+            line-height: 1.1;
         }
 
         h2 {
-            font-size: 1.75rem;
-            font-weight: 600;
-            margin-bottom: 2rem;
-            color: var(--text-primary);
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid var(--border-color);
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        h2::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: var(--border-color);
+            margin-left: 1rem;
         }
 
         h3 {
             font-size: 1.25rem;
             font-weight: 600;
-            margin: 1.5rem 0 1rem;
-            color: var(--text-primary);
+            margin: 2rem 0 1rem;
+            color: var(--text-main);
         }
 
         p {
             margin-bottom: 1.5rem;
-            color: var(--text-secondary);
+            color: var(--text-muted);
         }
 
-        .intro {
-            font-size: 1.15rem;
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-            line-height: 1.8;
-        }
-
-        /* Links */
         a.link {
-            color: var(--accent-color);
+            color: var(--primary-color);
             text-decoration: none;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid transparent;
             transition: border-color 0.2s;
         }
 
         a.link:hover {
-            border-bottom-color: var(--accent-color);
+            border-bottom-color: var(--primary-color);
         }
 
-        /* Project Structure */
-        .project-tree {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            padding: 2rem;
-            margin: 2rem 0;
-            font-family: 'Monaco', 'Courier New', monospace;
-            font-size: 0.9rem;
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 2rem 0 4rem;
+        }
+
+        .profile-img {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 2rem;
+            border: 4px solid white;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s ease;
+        }
+
+        .profile-img:hover {
+            transform: scale(1.05);
+        }
+
+        .intro-text {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
             line-height: 1.6;
-            overflow-x: auto;
         }
 
-        .folder {
-            margin: 0.25rem 0;
+        /* Project Tree (File Explorer) */
+        .project-explorer {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+            font-size: 0.9rem;
+            margin: 2rem 0;
         }
 
-        .folder-header {
-            cursor: pointer;
-            user-select: none;
-            padding: 0.25rem 0;
-            color: var(--text-primary);
+        .explorer-header {
+            background: var(--bg-body);
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             font-weight: 600;
             display: flex;
+            justify-content: space-between;
+        }
+
+        .explorer-content {
+            padding: 1rem;
+        }
+
+        .tree-item {
+            cursor: pointer;
+            padding: 0.2rem 0;
+            white-space: nowrap;
+            display: flex;
             align-items: center;
+            color: var(--text-muted);
             transition: color 0.2s;
         }
 
-        .folder-header:hover {
-            color: var(--accent-color);
+        .tree-item:hover {
+            color: var(--primary-color);
         }
 
-        .folder-toggle {
-            display: inline-block;
-            width: 1rem;
+        .folder-icon {
             margin-right: 0.5rem;
+            width: 16px;
+            text-align: center;
+            display: inline-block;
             transition: transform 0.2s;
+            font-size: 0.8rem;
         }
 
-        .folder-toggle.expanded {
+        .folder.open > .tree-item > .folder-icon {
             transform: rotate(90deg);
         }
 
-        .folder-content {
-            margin-left: 1.5rem;
+        .folder-children {
+            margin-left: 1.2rem;
             display: none;
-            overflow: hidden;
+            border-left: 1px solid var(--border-color);
         }
 
-        .folder-content.show {
+        .folder.open > .folder-children {
             display: block;
         }
 
-        .file {
-            color: var(--text-secondary);
-            padding: 0.25rem 0;
-            padding-left: 1rem;
+        .file-link {
+            text-decoration: none;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            padding: 0.2rem 0 0.2rem 0.5rem;
+            transition: all 0.2s;
         }
 
-        .subfolder {
-            margin-left: 0;
+        .file-link:hover {
+            color: var(--primary-color);
+            background: var(--accent-bg);
+            border-radius: 4px;
         }
 
-        /* Interest Areas */
-        .interests {
-            margin: 2rem 0;
+        .file-icon {
+            margin-right: 0.5rem;
+            opacity: 0.7;
         }
 
-        .interests ul {
-            list-style: none;
-            padding-left: 0;
+        /* Cards for Interests */
+        .interests-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
         }
 
-        .interests li {
-            padding: 0.75rem 0;
-            color: var(--text-secondary);
-            border-bottom: 1px solid var(--border-color);
+        .interest-card {
+            background: var(--bg-card);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s, box-shadow 0.2s;
         }
 
-        .interests li:last-child {
-            border-bottom: none;
+        .interest-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-color);
         }
 
-        /* Contact */
-        .contact-list {
-            list-style: none;
-            padding-left: 0;
+        .interest-card h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
         }
 
-        .contact-list li {
-            padding: 0.75rem 0;
-            color: var(--text-secondary);
+        .interest-card p {
+            font-size: 0.95rem;
+            margin-bottom: 0;
         }
 
         /* Footer */
         footer {
-            max-width: 900px;
-            margin: 4rem auto 0;
-            padding: 2rem;
             text-align: center;
+            padding: 3rem;
             color: var(--text-muted);
             font-size: 0.9rem;
             border-top: 1px solid var(--border-color);
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-card);
+            margin-top: 4rem;
         }
 
         /* Responsive */
@@ -245,164 +309,224 @@
                 flex-direction: column;
                 gap: 1rem;
             }
-
-            nav ul {
-                gap: 1rem;
-            }
-
-            main {
-                padding: 7rem 1.5rem 3rem;
-            }
-
-            h1 {
-                font-size: 2rem;
-            }
-
-            h2 {
-                font-size: 1.5rem;
-            }
-
-            .project-tree {
-                padding: 1.5rem;
-                font-size: 0.85rem;
-            }
+            
+            h1 { font-size: 2rem; }
+            
+            .hero { padding-top: 1rem; }
         }
     </style>
 </head>
 <body>
     <nav>
         <div class="container">
-            <div class="name">Hasan Siddiki</div>
+            <a href="#" class="brand">Hasan Siddiki</a>
             <ul>
                 <li><a href="#home">Home</a></li>
-                <li><a href="#myworks">MyWorks</a></li>
+                <li><a href="#myworks">My Works</a></li>
                 <li><a href="#writing">Writing</a></li>
                 <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
             </ul>
         </div>
     </nav>
 
     <main>
         <!-- Home Section -->
-        <section id="home">
+        <section id="home" class="hero">
+            <img src="ProfileImage.png" alt="Hasan Siddiki" class="profile-img">
             <h1>Hasan Siddiki</h1>
-            <p class="intro">
+            <p class="intro-text">
                 Computer Science student focused on understanding systems from first principles.
                 I build implementations from scratch, study the mathematics behind algorithms,
                 and prioritize depth over abstraction.
             </p>
+            <div style="margin-top: 2rem;">
+                <a href="#contact" style="background: var(--primary-color); color: white; padding: 0.8rem 1.5rem; border-radius: 6px; text-decoration: none; font-weight: 600; transition: background 0.2s;">Get in Touch</a>
+            </div>
         </section>
 
         <!-- MyWorks Section -->
         <section id="myworks">
-            <h2>MyWorks</h2>
+            <h2>My Works</h2>
             <p>
                 A collection of research-oriented implementations and documented explorations
-                in machine learning, signal processing, and computational methods. Each project
-                emphasizes theoretical understanding and algorithmic rigor.
+                in machine learning, signal processing, and computational methods.
             </p>
 
-            <div class="project-tree">
-                <div class="folder">
-                    <div class="folder-header" onclick="toggleFolder(this)">
-                        <span class="folder-toggle">▸</span>Development/
-                    </div>
-                    <div class="folder-content">
-                        <div class="folder subfolder">
-                            <div class="folder-header" onclick="toggleFolder(this)">
-                                <span class="folder-toggle">▸</span>Hardware/
-                            </div>
-                            <div class="folder-content">
-                                <div class="file">FPV/</div>
-                                <div class="file">Metronome/</div>
-                            </div>
-                        </div>
-                    </div>
+            <div class="project-explorer">
+                <div class="explorer-header">
+                    <span>Repository Explorer</span>
+                    <a href="https://github.com/Siddik911/HasanSiddiki" target="_blank" style="color: var(--primary-color); text-decoration: none;">View on GitHub →</a>
                 </div>
+                <div class="explorer-content">
+                    
+                    <!-- Development -->
+                    <div class="folder">
+                        <div class="tree-item" onclick="toggleFolder(this)">
+                            <span class="folder-icon">▶</span> Development
+                        </div>
+                        <div class="folder-children">
+                            <div class="folder">
+                                <div class="tree-item" onclick="toggleFolder(this)">
+                                    <span class="folder-icon">▶</span> Hardware
+                                </div>
+                                <div class="folder-children">
+                                    <div class="folder">
+                                        <div class="tree-item" onclick="toggleFolder(this)">
+                                            <span class="folder-icon">▶</span> FPV
+                                        </div>
+                                        <div class="folder-children">
+                                            <a href="https://github.com/Siddik911/HasanSiddiki/blob/main/Development/Hardware/FPV/CrackDetection.txt" class="file-link" target="_blank">
+                                                <span class="file-icon">📄</span> CrackDetection.txt
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="folder">
+                                        <div class="tree-item" onclick="toggleFolder(this)">
+                                            <span class="folder-icon">▶</span> Metronome
+                                        </div>
+                                        <div class="folder-children">
+                                            <!-- Empty folder in structure provided -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                <div class="folder">
-                    <div class="folder-header" onclick="toggleFolder(this)">
-                        <span class="folder-toggle">▸</span>MachineLearning/
-                    </div>
-                    <div class="folder-content">
-                        <div class="folder subfolder">
-                            <div class="folder-header" onclick="toggleFolder(this)">
-                                <span class="folder-toggle">▸</span>Algorithms/
+                    <!-- Machine Learning -->
+                    <div class="folder">
+                        <div class="tree-item" onclick="toggleFolder(this)">
+                            <span class="folder-icon">▶</span> MachineLearning
+                        </div>
+                        <div class="folder-children">
+                            <div class="folder">
+                                <div class="tree-item" onclick="toggleFolder(this)">
+                                    <span class="folder-icon">▶</span> Algorithms
+                                </div>
+                                <div class="folder-children">
+                                    <a href="https://github.com/Siddik911/HasanSiddiki/blob/main/MachineLearning/Algorithms/AutoRegressiveModel.txt" class="file-link" target="_blank">
+                                        <span class="file-icon">📄</span> AutoRegressiveModel.txt
+                                    </a>
+                                    <a href="https://github.com/Siddik911/HasanSiddiki/blob/main/MachineLearning/Algorithms/MultiVaritaeAutoregressiveModel.txt" class="file-link" target="_blank">
+                                        <span class="file-icon">📄</span> MultiVaritaeAutoregressiveModel.txt
+                                    </a>
+                                    <a href="https://github.com/Siddik911/HasanSiddiki/blob/main/MachineLearning/Algorithms/PricipleComponentAnalysis.txt" class="file-link" target="_blank">
+                                        <span class="file-icon">📄</span> PricipleComponentAnalysis.txt
+                                    </a>
+                                </div>
                             </div>
-                            <div class="folder-content">
-                                <div class="file">AutoRegressiveModel</div>
-                                <div class="file">MultivariateAutoregressiveModel</div>
-                                <div class="file">PrincipleComponentAnalysis</div>
+                            <div class="folder">
+                                <div class="tree-item" onclick="toggleFolder(this)">
+                                    <span class="folder-icon">▶</span> DeepLearning
+                                </div>
+                                <div class="folder-children">
+                                    <div class="folder">
+                                        <div class="tree-item" onclick="toggleFolder(this)">
+                                            <span class="folder-icon">▶</span> BabyMLP
+                                        </div>
+                                        <div class="folder-children">
+                                            <a href="https://github.com/Siddik911/HasanSiddiki/blob/main/MachineLearning/DeepLearning/BabyMLP/BabyMLP.html" class="file-link" target="_blank">
+                                                <span class="file-icon">📄</span> BabyMLP.html
+                                            </a>
+                                            <a href="https://github.com/Siddik911/HasanSiddiki/blob/main/MachineLearning/DeepLearning/BabyMLP/BabyMLP.ipynb" class="file-link" target="_blank">
+                                                <span class="file-icon">📓</span> BabyMLP.ipynb
+                                            </a>
+                                            <a href="https://github.com/Siddik911/HasanSiddiki/blob/main/MachineLearning/DeepLearning/BabyMLP/README.md" class="file-link" target="_blank">
+                                                <span class="file-icon">📝</span> README.md
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="folder subfolder">
-                            <div class="folder-header" onclick="toggleFolder(this)">
-                                <span class="folder-toggle">▸</span>DeepLearning/
-                            </div>
-                            <div class="folder-content">
-                                <div class="file">Algorithms/</div>
-                                <div class="file">BabyMLP/</div>
-                            </div>
-                        </div>
                     </div>
-                </div>
 
-                <div class="folder">
-                    <div class="folder-header" onclick="toggleFolder(this)">
-                        <span class="folder-toggle">▸</span>SignalProcessing/
+                    <!-- Signal Processing -->
+                    <div class="folder">
+                        <div class="tree-item" onclick="toggleFolder(this)">
+                            <span class="folder-icon">▶</span> SignalProcessing
+                        </div>
+                        <div class="folder-children">
+                            <div class="folder">
+                                <div class="tree-item" onclick="toggleFolder(this)">
+                                    <span class="folder-icon">▶</span> BCI
+                                </div>
+                                <div class="folder-children">
+                                    <a href="https://github.com/Siddik911/HasanSiddiki/blob/main/SignalProcessing/BCI/MNE.txt" class="file-link" target="_blank">
+                                        <span class="file-icon">📄</span> MNE.txt
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="folder">
+                                <div class="tree-item" onclick="toggleFolder(this)">
+                                    <span class="folder-icon">▶</span> Fundamentals
+                                </div>
+                                <div class="folder-children">
+                                    <a href="https://github.com/Siddik911/HasanSiddiki/blob/main/SignalProcessing/Fundumentals/EmpericalModeDecomposition.txt" class="file-link" target="_blank">
+                                        <span class="file-icon">📄</span> EmpericalModeDecomposition.txt
+                                    </a>
+                                    <a href="https://github.com/Siddik911/HasanSiddiki/blob/main/SignalProcessing/Fundumentals/FourierTransform.txt" class="file-link" target="_blank">
+                                        <span class="file-icon">📄</span> FourierTransform.txt
+                                    </a>
+                                    <a href="https://github.com/Siddik911/HasanSiddiki/blob/main/SignalProcessing/Fundumentals/IndependentCompnentAnalysis.txt" class="file-link" target="_blank">
+                                        <span class="file-icon">📄</span> IndependentCompnentAnalysis.txt
+                                    </a>
+                                    <a href="https://github.com/Siddik911/HasanSiddiki/blob/main/SignalProcessing/Fundumentals/MusicAlgorithm.txt" class="file-link" target="_blank">
+                                        <span class="file-icon">📄</span> MusicAlgorithm.txt
+                                    </a>
+                                    <a href="https://github.com/Siddik911/HasanSiddiki/blob/main/SignalProcessing/Fundumentals/ProneysMethod.txt" class="file-link" target="_blank">
+                                        <span class="file-icon">📄</span> ProneysMethod.txt
+                                    </a>
+                                    <a href="https://github.com/Siddik911/HasanSiddiki/blob/main/SignalProcessing/Fundumentals/ShanonNyquist.txt" class="file-link" target="_blank">
+                                        <span class="file-icon">📄</span> ShanonNyquist.txt
+                                    </a>
+                                    <a href="https://github.com/Siddik911/HasanSiddiki/blob/main/SignalProcessing/Fundumentals/WaveletTransform.txt" class="file-link" target="_blank">
+                                        <span class="file-icon">📄</span> WaveletTransform.txt
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="folder">
+                                <div class="tree-item" onclick="toggleFolder(this)">
+                                    <span class="folder-icon">▶</span> ImageProcessing
+                                </div>
+                                <div class="folder-children">
+                                    <a href="https://github.com/Siddik911/HasanSiddiki/blob/main/SignalProcessing/ImageProcessing/ImageCompressionWithFFT.txt" class="file-link" target="_blank">
+                                        <span class="file-icon">📄</span> ImageCompressionWithFFT.txt
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="folder-content">
-                        <div class="folder subfolder">
-                            <div class="folder-header" onclick="toggleFolder(this)">
-                                <span class="folder-toggle">▸</span>BCI/
-                            </div>
-                            <div class="folder-content">
-                                <div class="file">MNE</div>
-                            </div>
-                        </div>
-                        <div class="folder subfolder">
-                            <div class="folder-header" onclick="toggleFolder(this)">
-                                <span class="folder-toggle">▸</span>Fundamentals/
-                            </div>
-                            <div class="folder-content">
-                                <div class="file">EmpericalModeDecomposition</div>
-                                <div class="file">FourierTransform</div>
-                                <div class="file">IndependentComponentAnalysis</div>
-                                <div class="file">MusicAlgorithm</div>
-                                <div class="file">ProneysMethod</div>
-                                <div class="file">ShanonNyquist</div>
-                                <div class="file">WaveletTransform</div>
-                            </div>
-                        </div>
-                        <div class="folder subfolder">
-                            <div class="folder-header" onclick="toggleFolder(this)">
-                                <span class="folder-toggle">▸</span>ImageProcessing/
-                            </div>
-                            <div class="folder-content">
-                                <div class="file">ImageCompressionWithFFT</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="folder">
-                    <div class="folder-header" onclick="toggleFolder(this)">
-                        <span class="folder-toggle">▸</span>Theories/
+                    <!-- Theories -->
+                    <div class="folder">
+                        <div class="tree-item" onclick="toggleFolder(this)">
+                            <span class="folder-icon">▶</span> Theories
+                        </div>
+                        <div class="folder-children">
+                            <div class="folder">
+                                <div class="tree-item" onclick="toggleFolder(this)">
+                                    <span class="folder-icon">▶</span> Calculus
+                                </div>
+                                <div class="folder-children"></div>
+                            </div>
+                            <div class="folder">
+                                <div class="tree-item" onclick="toggleFolder(this)">
+                                    <span class="folder-icon">▶</span> LinearAlgebra
+                                </div>
+                                <div class="folder-children"></div>
+                            </div>
+                            <div class="folder">
+                                <div class="tree-item" onclick="toggleFolder(this)">
+                                    <span class="folder-icon">▶</span> Stat
+                                </div>
+                                <div class="folder-children"></div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="folder-content">
-                        <div class="file">Calculus/</div>
-                        <div class="file">LinearAlgebra/</div>
-                        <div class="file">Statistics/</div>
-                    </div>
+
                 </div>
             </div>
-
-            <p>
-                <a href="https://github.com/Siddik911/HasanSiddiki" class="link" target="_blank">
-                    View complete repository on GitHub →
-                </a>
-            </p>
         </section>
 
         <!-- Writing Section -->
@@ -410,27 +534,23 @@
             <h2>Writing / Notes</h2>
             <p>
                 Technical notes and write-ups documenting implementation decisions, mathematical
-                derivations, and algorithmic analysis. These materials serve as both personal
-                reference and learning resources.
+                derivations, and algorithmic analysis.
             </p>
 
-            <h3>Machine Learning</h3>
-            <p>
-                Explorations of autoregressive models, PCA, and fundamental deep learning
-                architectures implemented without high-level frameworks.
-            </p>
-
-            <h3>Signal Processing</h3>
-            <p>
-                Studies in Fourier analysis, wavelet transforms, independent component analysis,
-                and computational methods for signal decomposition and reconstruction.
-            </p>
-
-            <h3>Foundations</h3>
-            <p>
-                Mathematical foundations covering linear algebra, calculus, and statistical
-                methods essential for rigorous algorithmic work.
-            </p>
+            <div class="interests-grid">
+                <div class="interest-card">
+                    <h4>Machine Learning</h4>
+                    <p>Explorations of autoregressive models, PCA, and fundamental deep learning architectures implemented without high-level frameworks.</p>
+                </div>
+                <div class="interest-card">
+                    <h4>Signal Processing</h4>
+                    <p>Studies in Fourier analysis, wavelet transforms, independent component analysis, and computational methods for signal decomposition.</p>
+                </div>
+                <div class="interest-card">
+                    <h4>Foundations</h4>
+                    <p>Mathematical foundations covering linear algebra, calculus, and statistical methods essential for rigorous algorithmic work.</p>
+                </div>
+            </div>
         </section>
 
         <!-- About Section -->
@@ -442,22 +562,25 @@
                 pre-packaged solutions.
             </p>
 
-            <div class="interests">
-                <h3>Research Interests</h3>
-                <ul>
-                    <li>Machine Learning from first principles</li>
-                    <li>Signal and Image Processing</li>
-                    <li>Computer Vision and computational photography</li>
-                    <li>Algorithmic foundations and systems-level thinking</li>
-                    <li>Mathematical optimization and numerical methods</li>
-                </ul>
+            <div class="interests-grid">
+                <div class="interest-card">
+                    <h4>Research Interests</h4>
+                    <ul style="list-style: none; margin-top: 0.5rem;">
+                        <li style="margin-bottom: 0.5rem;">• Machine Learning from first principles</li>
+                        <li style="margin-bottom: 0.5rem;">• Signal and Image Processing</li>
+                        <li style="margin-bottom: 0.5rem;">• Computer Vision</li>
+                        <li style="margin-bottom: 0.5rem;">• Algorithmic foundations</li>
+                    </ul>
+                </div>
+                <div class="interest-card">
+                    <h4>Philosophy</h4>
+                    <p>
+                        I value clarity in exposition, mathematical rigor in implementation, and
+                        building intuition through careful study. My approach favors depth over
+                        breadth, understanding over memorization.
+                    </p>
+                </div>
             </div>
-
-            <p>
-                I value clarity in exposition, mathematical rigor in implementation, and
-                building intuition through careful study. My approach favors depth over
-                breadth, understanding over memorization.
-            </p>
         </section>
 
         <!-- Contact Section -->
@@ -465,21 +588,17 @@
             <h2>Contact</h2>
             <p>
                 I am open to research collaborations, technical discussions, and opportunities
-                in machine learning research or engineering roles that value foundational knowledge.
+                in machine learning research or engineering roles.
             </p>
 
-            <ul class="contact-list">
-                <li>
-                    GitHub: <a href="https://github.com/Siddik911" class="link" target="_blank">
-                        github.com/Siddik911
-                    </a>
-                </li>
-                <li>
-                    Repository: <a href="https://github.com/Siddik911/HasanSiddiki" class="link" target="_blank">
-                        github.com/Siddik911/HasanSiddiki
-                    </a>
-                </li>
-            </ul>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                <a href="https://github.com/Siddik911" class="link" target="_blank" style="font-weight: 600;">
+                    GitHub Profile →
+                </a>
+                <a href="https://github.com/Siddik911/HasanSiddiki" class="link" target="_blank" style="font-weight: 600;">
+                    Project Repository →
+                </a>
+            </div>
         </section>
     </main>
 
@@ -488,7 +607,7 @@
     </footer>
 
     <script>
-        // Smooth scrolling for navigation links
+        // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -499,14 +618,16 @@
             });
         });
 
-        // Toggle folder visibility
+        // Folder toggle logic
         function toggleFolder(element) {
-            const toggle = element.querySelector('.folder-toggle');
-            const content = element.nextElementSibling;
+            const folder = element.parentElement;
+            folder.classList.toggle('open');
             
-            if (content && content.classList.contains('folder-content')) {
-                content.classList.toggle('show');
-                toggle.classList.toggle('expanded');
+            const icon = element.querySelector('.folder-icon');
+            if (folder.classList.contains('open')) {
+                icon.style.transform = 'rotate(90deg)';
+            } else {
+                icon.style.transform = 'rotate(0deg)';
             }
         }
     </script>
