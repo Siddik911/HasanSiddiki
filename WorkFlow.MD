@@ -31,8 +31,14 @@ git pull
 
 If starting new work
 
+![alt text](image.png)
+
 ```bash
 git checkout -b feature/new-work
+```
+
+```bash
+git push -u origin HEAD
 ```
 
 ## C. During Work (Anytime)
