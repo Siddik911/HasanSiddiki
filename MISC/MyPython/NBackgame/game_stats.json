@@ -1,0 +1,80 @@
+{
+  "games": [
+    {
+      "date": "2026-01-05T12:49:00.938951",
+      "n_level": 2,
+      "grid_size": "3x3",
+      "rounds": 20,
+      "score": 0,
+      "position_accuracy": 0.0,
+      "string_accuracy": 0.0
+    },
+    {
+      "date": "2026-01-05T12:56:04.355579",
+      "n_level": 2,
+      "grid_size": "3x3",
+      "rounds": 20,
+      "score": 0,
+      "position_accuracy": 0.0,
+      "string_accuracy": 0.0
+    },
+    {
+      "date": "2026-01-05T13:02:39.161010",
+      "n_level": 1,
+      "grid_size": "2x2",
+      "rounds": 10,
+      "score": 20,
+      "position_accuracy": 22.2,
+      "string_accuracy": 0.0
+    },
+    {
+      "date": "2026-01-05T13:04:24.147766",
+      "n_level": 1,
+      "grid_size": "2x2",
+      "rounds": 10,
+      "score": 5,
+      "position_accuracy": 11.1,
+      "string_accuracy": 0.0
+    },
+    {
+      "date": "2026-01-05T13:04:44.400583",
+      "n_level": 1,
+      "grid_size": "2x2",
+      "rounds": 10,
+      "score": 0,
+      "position_accuracy": 0.0,
+      "string_accuracy": 0.0
+    },
+    {
+      "date": "2026-01-05T13:05:24.355532",
+      "n_level": 1,
+      "grid_size": "2x2",
+      "rounds": 10,
+      "score": 0,
+      "position_accuracy": 0.0,
+      "string_accuracy": 0.0
+    },
+    {
+      "date": "2026-01-05T13:05:55.970895",
+      "n_level": 1,
+      "grid_size": "2x2",
+      "rounds": 10,
+      "score": 20,
+      "position_accuracy": 30.0,
+      "string_accuracy": 0.0
+    },
+    {
+      "date": "2026-01-05T13:06:54.550334",
+      "n_level": 1,
+      "grid_size": "2x2",
+      "rounds": 10,
+      "score": 10,
+      "position_accuracy": 22.2,
+      "string_accuracy": 0.0
+    }
+  ],
+  "high_scores": {
+    "level_2": 0,
+    "level_1": 20
+  }
+}
