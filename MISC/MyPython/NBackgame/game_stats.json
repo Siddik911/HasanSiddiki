@@ -71,10 +71,37 @@
       "score": 10,
       "position_accuracy": 22.2,
       "string_accuracy": 0.0
+    },
+    {
+      "date": "2026-01-05T13:16:00.570921",
+      "n_level": 2,
+      "grid_size": "3x3",
+      "rounds": 20,
+      "score": 0,
+      "position_accuracy": 0.0,
+      "string_accuracy": 0.0
+    },
+    {
+      "date": "2026-01-05T13:16:50.102375",
+      "n_level": 1,
+      "grid_size": "2x2",
+      "rounds": 10,
+      "score": 0,
+      "position_accuracy": 0.0,
+      "string_accuracy": 0.0
+    },
+    {
+      "date": "2026-01-05T13:18:29.657702",
+      "n_level": 1,
+      "grid_size": "2x2",
+      "rounds": 10,
+      "score": 55,
+      "position_accuracy": 22.2,
+      "string_accuracy": 40.0
     }
   ],
   "high_scores": {
     "level_2": 0,
-    "level_1": 20
+    "level_1": 55
   }
 }

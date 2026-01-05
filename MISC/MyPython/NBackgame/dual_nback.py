@@ -23,29 +23,279 @@ class GameConfig:
         self.string_length = 2
         self.string_type = "letters"  # letters, numbers, combination
         self.letter_case = "capital"  # capital, lowercase, combination
+    
+    def get_char_pool(self):
+        """Get the character pool based on configuration"""
+        if self.string_type == "letters":
+            if self.letter_case == "capital":
+                return string.ascii_uppercase
+            elif self.letter_case == "lowercase":
+                return string.ascii_lowercase
+            else:  # combination
+                return string.ascii_letters
+        elif self.string_type == "numbers":
+            return string.digits
+        else:  # combination of letters and numbers
+            if self.letter_case == "capital":
+                return string.ascii_uppercase + string.digits
+            elif self.letter_case == "lowercase":
+                return string.ascii_lowercase + string.digits
+            else:  # full combination
+                return string.ascii_letters + string.digits
         
     def generate_string(self):
         """Generate a random string based on configuration"""
-        chars = ""
-        
-        if self.string_type == "letters":
-            if self.letter_case == "capital":
-                chars = string.ascii_uppercase
-            elif self.letter_case == "lowercase":
-                chars = string.ascii_lowercase
-            else:  # combination
-                chars = string.ascii_letters
-        elif self.string_type == "numbers":
-            chars = string.digits
-        else:  # combination of letters and numbers
-            if self.letter_case == "capital":
-                chars = string.ascii_uppercase + string.digits
-            elif self.letter_case == "lowercase":
-                chars = string.ascii_lowercase + string.digits
-            else:  # full combination
-                chars = string.ascii_letters + string.digits
-        
+        chars = self.get_char_pool()
         return ''.join(random.choice(chars) for _ in range(self.string_length))
+
+
+class StimulusGenerator:
+    """
+    Advanced stimulus generator using uniform distribution with enforced 
+    constraints and adaptive tuning for balanced, engaging gameplay.
+    """
+    
+    def __init__(self, config):
+        self.config = config
+        
+        # Target match rates (percentage of rounds that should have matches)
+        self.target_position_match_rate = 0.25  # 25% position matches
+        self.target_string_match_rate = 0.25    # 25% string matches
+        self.target_dual_match_rate = 0.10      # 10% dual matches (both)
+        
+        # Adaptive tuning parameters
+        self.position_matches_count = 0
+        self.string_matches_count = 0
+        self.dual_matches_count = 0
+        self.matchable_rounds = 0  # Rounds where matching was possible
+        
+        # Streak prevention (avoid too many matches/non-matches in a row)
+        self.position_match_streak = 0
+        self.string_match_streak = 0
+        self.no_match_streak = 0
+        self.max_streak = 4  # Maximum consecutive matches or non-matches
+        
+        # History for n-back lookups
+        self.history = []
+        
+        # Lure settings (near-matches to increase difficulty)
+        self.lure_probability = 0.15  # 15% chance of generating lures
+    
+    def reset(self):
+        """Reset generator state for new game"""
+        self.position_matches_count = 0
+        self.string_matches_count = 0
+        self.dual_matches_count = 0
+        self.matchable_rounds = 0
+        self.position_match_streak = 0
+        self.string_match_streak = 0
+        self.no_match_streak = 0
+        self.history = []
+    
+    def get_current_match_rates(self):
+        """Calculate current match rates"""
+        if self.matchable_rounds == 0:
+            return 0, 0, 0
+        
+        pos_rate = self.position_matches_count / self.matchable_rounds
+        str_rate = self.string_matches_count / self.matchable_rounds
+        dual_rate = self.dual_matches_count / self.matchable_rounds
+        return pos_rate, str_rate, dual_rate
+    
+    def calculate_adaptive_probability(self, current_rate, target_rate, base_prob=0.25):
+        """
+        Calculate adaptive probability based on how far we are from target.
+        Uses sigmoid-like adjustment for smooth transitions.
+        """
+        if self.matchable_rounds < 3:
+            return base_prob  # Not enough data, use base probability
+        
+        # Calculate deviation from target
+        deviation = target_rate - current_rate
+        
+        # Adjust probability: increase if below target, decrease if above
+        # Scale factor controls how aggressively we adapt
+        scale_factor = 2.0
+        adjustment = deviation * scale_factor
+        
+        # Clamp probability between reasonable bounds
+        adjusted_prob = base_prob + adjustment
+        return max(0.1, min(0.5, adjusted_prob))
+    
+    def should_force_match(self, match_type):
+        """Determine if we should force a match based on streaks and rates"""
+        # Prevent excessive non-match streaks
+        if self.no_match_streak >= self.max_streak:
+            return random.random() < 0.6  # 60% chance to force a match
+        
+        # Prevent excessive match streaks
+        if match_type == "position" and self.position_match_streak >= self.max_streak:
+            return False
+        if match_type == "string" and self.string_match_streak >= self.max_streak:
+            return False
+        
+        return None  # No forcing needed
+    
+    def generate_position_lure(self, n_back_position):
+        """Generate a position that's close to but not matching n-back"""
+        if n_back_position is None:
+            return self.generate_random_position()
+        
+        row, col = n_back_position
+        
+        # Generate adjacent position (lure)
+        offsets = [(-1, 0), (1, 0), (0, -1), (0, 1), (-1, -1), (1, 1), (-1, 1), (1, -1)]
+        random.shuffle(offsets)
+        
+        for dr, dc in offsets:
+            new_row = row + dr
+            new_col = col + dc
+            if 0 <= new_row < self.config.grid_rows and 0 <= new_col < self.config.grid_cols:
+                return (new_row, new_col)
+        
+        return self.generate_random_position()
+    
+    def generate_string_lure(self, n_back_string):
+        """Generate a string that's similar to but not matching n-back"""
+        if n_back_string is None or len(n_back_string) == 0:
+            return self.config.generate_string()
+        
+        chars = self.config.get_char_pool()
+        result = list(n_back_string)
+        
+        # Change exactly one character (makes it a near-miss)
+        change_idx = random.randint(0, len(result) - 1)
+        original_char = result[change_idx]
+        
+        # Pick a different character
+        available = [c for c in chars if c != original_char]
+        if available:
+            result[change_idx] = random.choice(available)
+        
+        return ''.join(result)
+    
+    def generate_random_position(self):
+        """Generate a uniformly random position"""
+        return (
+            random.randint(0, self.config.grid_rows - 1),
+            random.randint(0, self.config.grid_cols - 1)
+        )
+    
+    def generate_stimulus(self):
+        """
+        Generate the next position and string stimulus using adaptive algorithm.
+        Returns: (position, string, metadata)
+        """
+        n = self.config.n_level
+        
+        # Check if we can do n-back matching yet
+        can_match = len(self.history) >= n
+        
+        if not can_match:
+            # Not enough history - generate purely random
+            position = self.generate_random_position()
+            stimulus_string = self.config.generate_string()
+            self.history.append((position, stimulus_string))
+            return position, stimulus_string, {"type": "random", "can_match": False}
+        
+        self.matchable_rounds += 1
+        n_back = self.history[-n]
+        n_back_position, n_back_string = n_back
+        
+        # Get current match rates for adaptive tuning
+        pos_rate, str_rate, dual_rate = self.get_current_match_rates()
+        
+        # Calculate adaptive probabilities
+        pos_match_prob = self.calculate_adaptive_probability(
+            pos_rate, self.target_position_match_rate, 0.25
+        )
+        str_match_prob = self.calculate_adaptive_probability(
+            str_rate, self.target_string_match_rate, 0.25
+        )
+        
+        # Determine what kind of stimulus to generate
+        roll_pos = random.random()
+        roll_str = random.random()
+        roll_lure = random.random()
+        
+        # Check for forced decisions based on streaks
+        force_pos = self.should_force_match("position")
+        force_str = self.should_force_match("string")
+        
+        # Decide position match
+        if force_pos is not None:
+            pos_match = force_pos
+        else:
+            pos_match = roll_pos < pos_match_prob
+        
+        # Decide string match
+        if force_str is not None:
+            str_match = force_str
+        else:
+            str_match = roll_str < str_match_prob
+        
+        # Generate position
+        if pos_match:
+            position = n_back_position
+            self.position_matches_count += 1
+            self.position_match_streak += 1
+        elif roll_lure < self.lure_probability:
+            position = self.generate_position_lure(n_back_position)
+            self.position_match_streak = 0
+        else:
+            # Generate non-matching position
+            position = self.generate_random_position()
+            # Ensure it doesn't accidentally match
+            attempts = 0
+            while position == n_back_position and attempts < 10:
+                position = self.generate_random_position()
+                attempts += 1
+            self.position_match_streak = 0
+        
+        # Generate string
+        if str_match:
+            stimulus_string = n_back_string
+            self.string_matches_count += 1
+            self.string_match_streak += 1
+        elif roll_lure < self.lure_probability:
+            stimulus_string = self.generate_string_lure(n_back_string)
+            self.string_match_streak = 0
+        else:
+            # Generate non-matching string
+            stimulus_string = self.config.generate_string()
+            # Ensure it doesn't accidentally match
+            attempts = 0
+            while stimulus_string == n_back_string and attempts < 10:
+                stimulus_string = self.config.generate_string()
+                attempts += 1
+            self.string_match_streak = 0
+        
+        # Track dual matches
+        if pos_match and str_match:
+            self.dual_matches_count += 1
+        
+        # Track no-match streaks
+        if not pos_match and not str_match:
+            self.no_match_streak += 1
+        else:
+            self.no_match_streak = 0
+        
+        # Store in history
+        self.history.append((position, stimulus_string))
+        
+        # Build metadata
+        metadata = {
+            "type": "adaptive",
+            "can_match": True,
+            "pos_match": pos_match,
+            "str_match": str_match,
+            "pos_prob": round(pos_match_prob, 2),
+            "str_prob": round(str_match_prob, 2),
+            "is_lure_pos": not pos_match and roll_lure < self.lure_probability,
+            "is_lure_str": not str_match and roll_lure < self.lure_probability
+        }
+        
+        return position, stimulus_string, metadata
 
 
 class GameStats:
@@ -168,6 +418,7 @@ class DualNBackGame:
         # Game state
         self.config = GameConfig()
         self.stats = GameStats()
+        self.stimulus_generator = None  # Created when game starts
         self.is_playing = False
         self.is_paused = False
         self.current_round = 0
@@ -505,6 +756,9 @@ class DualNBackGame:
         self.is_playing = True
         self.is_paused = False
         
+        # Initialize the adaptive stimulus generator
+        self.stimulus_generator = StimulusGenerator(self.config)
+        
         # Show game screen
         self.show_game_screen()
         
@@ -709,14 +963,12 @@ class DualNBackGame:
             self.grid_canvas.itemconfig(self.grid_cells[row][col], 
                                         fill=self.COLORS["grid_empty"])
         
-        # Generate new position and string
-        new_row = random.randint(0, self.config.grid_rows - 1)
-        new_col = random.randint(0, self.config.grid_cols - 1)
-        self.current_position = (new_row, new_col)
-        self.current_string = self.config.generate_string()
+        # Generate new position and string using adaptive stimulus generator
+        self.current_position, self.current_string, metadata = self.stimulus_generator.generate_stimulus()
+        new_row, new_col = self.current_position
         
-        # Add to history
-        self.history.append((self.current_position, self.current_string))
+        # Sync history with generator's history
+        self.history = self.stimulus_generator.history.copy()
         
         # Update display
         self.grid_canvas.itemconfig(self.grid_cells[new_row][new_col],
@@ -731,7 +983,7 @@ class DualNBackGame:
         self.score_label.configure(text=f"Score: {score_data['total_score']}")
         
         # Clear feedback when match checking is possible
-        if len(self.history) >= self.config.n_level + 1:
+        if metadata.get("can_match", False):
             self.feedback_label.configure(text="", foreground=self.COLORS["text"])
         else:
             self.feedback_label.configure(
