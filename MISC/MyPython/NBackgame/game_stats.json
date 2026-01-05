@@ -98,10 +98,37 @@
       "score": 55,
       "position_accuracy": 22.2,
       "string_accuracy": 40.0
+    },
+    {
+      "date": "2026-01-05T13:30:44.087151",
+      "n_level": 1,
+      "grid_size": "3x3",
+      "rounds": 20,
+      "score": 30,
+      "position_accuracy": 10.5,
+      "string_accuracy": 10.5
+    },
+    {
+      "date": "2026-01-05T13:32:27.078447",
+      "n_level": 2,
+      "grid_size": "4x4",
+      "rounds": 20,
+      "score": 40,
+      "position_accuracy": 75.0,
+      "string_accuracy": 66.7
+    },
+    {
+      "date": "2026-01-05T13:35:50.401457",
+      "n_level": 2,
+      "grid_size": "3x3",
+      "rounds": 20,
+      "score": 70,
+      "position_accuracy": 66.7,
+      "string_accuracy": 80.0
     }
   ],
   "high_scores": {
-    "level_2": 0,
+    "level_2": 70,
     "level_1": 55
   }
 }
